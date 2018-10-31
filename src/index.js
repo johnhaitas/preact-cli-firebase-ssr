@@ -1,4 +1,13 @@
 import './style';
 import App from './components/app';
 
-export default App;
+import createHistory from 'history/createBrowserHistory';
+
+const getProps = () => {
+		const history = createHistory();
+		return { history };
+	},
+	props = getProps(),
+	ClientEntry = () => (<App {...props} />);
+
+export default ClientEntry;
