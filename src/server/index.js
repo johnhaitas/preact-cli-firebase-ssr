@@ -1,4 +1,4 @@
-import App, { AppPlaceholder } from '../components/app';
+import App from '../components/app';
 import getPropsGenerator from './props';
 import { rendererGenerator } from './render';
 import handlerGenerator from './handler';
@@ -10,5 +10,8 @@ export const createHandler = template => {
 	return handler;
 };
 
-// will pre-render with a placeholder
-export default AppPlaceholder;
+const EmptyPlaceholder = () => ('');
+
+// will pre-render with an empty placeholder ...
+// this way the rendered app can be inserted immediately after the '<body>' tag
+export default EmptyPlaceholder;
