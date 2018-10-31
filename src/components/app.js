@@ -7,6 +7,8 @@ import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 
+export const AppPlaceholder = () => (<div id="app" />);
+
 export default class App extends Component {
 	
 	/** Gets fired when the route changes.
@@ -17,11 +19,11 @@ export default class App extends Component {
 		this.currentUrl = e.url;
 	};
 
-	render() {
+	render({ history }) {
 		return (
 			<div id="app">
 				<Header />
-				<Router onChange={this.handleRoute}>
+				<Router history={history} onChange={this.handleRoute}>
 					<Home path="/" />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />

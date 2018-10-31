@@ -4,3 +4,8 @@ node_modules
 *.lock
 
 package-lock.json
+
+/.firebase
+/.firebaserc
+/functions/**/*.log
+/functions/app/*

@@ -1,0 +1,44 @@
+{
+  "hosting": {
+    "public": "build",
+    "rewrites": [
+      {
+        "source": "/",
+        "function": "app"
+      },
+      {
+        "source": "/profile",
+        "function": "app"
+      },
+      {
+        "source": "/profile/john",
+        "function": "app"
+      }
+    ],
+    "headers": [
+      {
+        "source":"/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ],
+    "ignore": [
+      "index.html",
+      "ssr-build/**",
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
+  },
+  "functions": {
+    "predeploy": [
+      "npm run build"
+    ]
+  }
+}
