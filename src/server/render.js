@@ -1,12 +1,15 @@
 import { h } from 'preact';
 import render from 'preact-render-to-string';
 
+const windowVarScript = (name, value) => `<script>window.${name}=${JSON.stringify(value)}</script>`;
+
 export const rendererGenerator = (template, Root) => {
 	const headTag = '<head>',
 		bodyTag = '<body>';
 	return props => {
-		const app = render(h(Root, props)),
-			head = '',
+		const { store } = props,
+			app = render(h(Root, props)),
+			head = windowVarScript('__STORE_STATE', store.getState()),
 			// things you might do with `head` here ...
 			// * use Helmet for page title and/or OpenGraph https://github.com/nfl/react-helmet#server-usage
 			// * write the unistore or redux store state after render

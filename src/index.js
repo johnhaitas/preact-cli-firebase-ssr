@@ -2,13 +2,14 @@ import './style';
 import App from './components/app';
 
 import createHistory from 'history/createBrowserHistory';
+import createStore from 'unistore';
 
 const getProps = () => {
-		const history = createHistory();
+		const history = createHistory(),
+			store = createStore(window.__STORE_STATE || {});
 		// other things you might do here ...
-		// * initialize a client-side unistore or redux store
-		//   * can receive an initial state written into `<head>` in server render
-		return { history };
+		// * initialize something via a client-side configuration on the `window` object
+		return { history, store };
 	},
 	props = getProps(),
 	ClientEntry = () => (<App {...props} />);

@@ -1,25 +1,27 @@
 import { h, Component } from 'preact';
+import { connect } from 'unistore/preact';
+
 import style from './style';
 
-export default class Profile extends Component {
-	state = {
-		time: Date.now(),
-		count: 10
-	};
+const actions = store => ({
 
-	// update the current time
-	updateTime = () => {
-		this.setState({ time: Date.now() });
-	};
+	updateTime: () => ({ time: Date.now() }),
+	
+	increment: ({ count = 0 }) => ({ count: count + 1 })
+});
 
-	increment = () => {
-		this.setState({ count: this.state.count+1 });
-	};
+class Profile extends Component {
+
+	componentWillMount() {
+		const { updateTime } = this.props;
+		updateTime();
+	}
 
 	// gets called when this route is navigated to
 	componentDidMount() {
+		const { updateTime } = this.props;
 		// start a timer for the clock:
-		this.timer = setInterval(this.updateTime, 1000);
+		this.timer = setInterval(updateTime, 1000);
 	}
 
 	// gets called just before navigating away from the route
@@ -28,7 +30,7 @@ export default class Profile extends Component {
 	}
 
 	// Note: `user` comes from the URL, courtesy of our router
-	render({ user }, { time, count }) {
+	render({ user, time, count, increment }) {
 		return (
 			<div class={style.profile}>
 				<h1>Profile: {user}</h1>
@@ -37,7 +39,7 @@ export default class Profile extends Component {
 				<div>Current time: {new Date(time).toLocaleString()}</div>
 
 				<p>
-					<button onClick={this.increment}>Click Me</button>
+					<button onClick={increment}>Click Me</button>
 					{' '}
 					Clicked {count} times.
 				</p>
@@ -45,3 +47,7 @@ export default class Profile extends Component {
 		);
 	}
 }
+
+const ConnectedProfile = connect(['time', 'count'], actions)(Profile);
+
+export default ConnectedProfile;

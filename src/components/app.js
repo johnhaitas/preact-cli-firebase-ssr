@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
+import { Provider } from 'unistore/preact';
 
 import Header from './header';
 
@@ -7,7 +8,7 @@ import Header from './header';
 import Home from '../routes/home';
 import Profile from '../routes/profile';
 
-export default class App extends Component {
+class App extends Component {
 	
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
@@ -30,3 +31,11 @@ export default class App extends Component {
 		);
 	}
 }
+
+const ProvidedApp = ({ store, ...props }) => (
+	<Provider store={store}>
+		<App {...props} />
+	</Provider>
+);
+
+export default ProvidedApp;

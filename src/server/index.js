@@ -3,8 +3,8 @@ import getPropsGenerator from './props';
 import { rendererGenerator } from './render';
 import handlerGenerator from './handler';
 
-export const createHandler = template => {
-	const getProps = getPropsGenerator(),
+export const createHandler = (template, baseState) => {
+	const getProps = getPropsGenerator(baseState),
 		render = rendererGenerator(template, App),
 		handler = handlerGenerator(getProps, render);
 	return handler;
