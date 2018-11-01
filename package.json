@@ -28,6 +28,7 @@
     "jest": "^21.2.1",
     "preact-cli": "^2.2.1",
     "preact-cli-plugin-fast-async": "^1.0.1",
+    "preact-cli-sw-precache": "^1.0.3",
     "preact-render-spy": "^1.2.1"
   },
   "dependencies": {
