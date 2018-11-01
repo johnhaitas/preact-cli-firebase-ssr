@@ -12,11 +12,6 @@ const actions = store => ({
 
 class Profile extends Component {
 
-	componentWillMount() {
-		const { updateTime } = this.props;
-		updateTime();
-	}
-
 	// gets called when this route is navigated to
 	componentDidMount() {
 		const { updateTime } = this.props;

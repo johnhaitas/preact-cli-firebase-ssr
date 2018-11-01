@@ -7,7 +7,8 @@ export default (baseState = {}) => async (request, response) => {
 		history = createHistory({ initialEntries: [url] }),
 		initialState = {
 			...JSON.parse(JSON.stringify(baseState)), // don't mutate the `baseState`
-			count: 0
+			count: 0,
+			time: Date.now()
 		},
 		store = createStore(initialState);
 	// other things you might do here:
