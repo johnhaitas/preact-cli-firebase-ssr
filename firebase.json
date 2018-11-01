@@ -28,6 +28,7 @@
     ],
     "ignore": [
       "index.html",
+      "**/*.map",
       "ssr-build/**",
       "firebase.json",
       "**/.*",
