@@ -8,8 +8,8 @@ export default (getProps, render) => (request, response) => {
 			response.setHeader('Content-Type', 'text/html');
 			response.send(renderedTemplate);
 		})
-		.catch(_ => {
-			console.warn(`Error rendering page for ${request.url}`);
+		.catch(error => {
+			console.error(`Error rendering page for ${request.url}`, error);
 			response.setHeader('Content-Type', 'text/plain');
 			response.status(500).send('Error');
 		});
