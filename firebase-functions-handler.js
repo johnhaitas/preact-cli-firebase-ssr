@@ -1,3 +1,2 @@
-import { createHandler } from './build/ssr-build/ssr-bundle';
-import template from './build/index.html';
-export { createHandler, template };
+export { createHandler } from './build/ssr-build/ssr-bundle';
+export { default as template } from './build/index.html';
