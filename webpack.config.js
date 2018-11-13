@@ -12,7 +12,7 @@ module.exports = {
 		}]
 	},
 	output: {
-		path: path.resolve(__dirname, 'functions/app/build'),
+		path: path.resolve(__dirname, 'functions/'),
 		filename: 'index.js',
 		library: '',
 		libraryTarget: 'commonjs'

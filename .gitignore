@@ -8,4 +8,4 @@ package-lock.json
 /.firebase
 /.firebaserc
 /functions/**/*.log
-/functions/app/*
+/functions/index.js
