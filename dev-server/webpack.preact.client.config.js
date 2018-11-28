@@ -1,8 +1,7 @@
 const { resolve } = require('path'),
-	asyncPlugin = require('preact-cli-plugin-fast-async'),
 	WebpackConfigHelpers = require('./webpack-config-helpers');
 
-const preactCliClientConfig = require('preact-cli/lib/lib/webpack/webpack-client-config').default;
+const preactCliClientConfig = require('preact-cli/lib/lib/webpack/webpack-client-config');
 
 const cwd = resolve(__dirname, '..'),
 	src = resolve(cwd, 'src'),
@@ -32,7 +31,5 @@ config.entry.bundle = [
 	((config.entry.bundle instanceof Array) ? config.entry.bundle[0] : config.entry.bundle),
 	'webpack-hot-middleware/client'
 ];
-
-asyncPlugin(config);
 
 module.exports = config;

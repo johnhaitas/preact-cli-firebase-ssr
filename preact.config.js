@@ -1,4 +1,3 @@
-import asyncPlugin from 'preact-cli-plugin-fast-async';
 import preactCliSwPrecachePlugin from 'preact-cli-sw-precache';
 
 /**
@@ -34,6 +33,4 @@ export default function (config, env, helpers) {
 	};
 	 
 	preactCliSwPrecachePlugin(config, precacheConfig);
-
-	asyncPlugin(config);
 }
