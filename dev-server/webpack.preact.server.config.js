@@ -2,7 +2,7 @@ const { resolve } = require('path');
 
 const preactCliServerConfig = require('preact-cli/lib/lib/webpack/webpack-server-config').default;
 
-const cwd = __dirname,
+const cwd = resolve(__dirname, '..'),
 	src = resolve(cwd, 'src'),
 	dest = resolve(cwd, 'build'),
 	env = {

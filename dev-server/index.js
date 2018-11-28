@@ -9,10 +9,12 @@ const webpack = require('webpack'),
 	serverCompiler = compiler.compilers.find(compiler => compiler.name === 'server'),
 	clientCompiler = compiler.compilers.find(compiler => compiler.name === 'client'),
 	webpackIsomorphicDevMiddleware = require('webpack-isomorphic-dev-middleware')(clientCompiler, serverCompiler),
+	webpackHotMiddleware = require('webpack-hot-middleware')(clientCompiler),
 	express = require('express'),
 	app = express();
 
 app.use(webpackIsomorphicDevMiddleware);
+app.use(webpackHotMiddleware);
 app.use((req, res, next) => {
 	const template = clientCompiler.outputFileSystem.readFileSync(`${clientConfig.output.path}/index.html`).toString('utf-8'),
 		{ createHandler } = res.locals.isomorphic.exports,
