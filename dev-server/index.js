@@ -5,10 +5,10 @@ clientConfig.name = 'client';
 
 const requireFromString = require('require-from-string'),
 	webpack = require('webpack'),
-	webpackConfig = [ serverConfig, clientConfig ],
-	compiler = webpack(webpackConfig),
-	serverCompiler = compiler.compilers.find(compiler => compiler.name === 'server'),
-	clientCompiler = compiler.compilers.find(compiler => compiler.name === 'client'),
+	webpackMultiConfig = [ serverConfig, clientConfig ],
+	multiCompiler = webpack(webpackMultiConfig),
+	serverCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'server'),
+	clientCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'client'),
 	readOutputFileSync = (compiler, filename) => compiler.outputFileSystem.readFileSync(`${compiler.outputPath}/${filename}`).toString('utf-8'),
 	webpackIsomorphicDevMiddleware = require('webpack-isomorphic-dev-middleware')(clientCompiler, serverCompiler),
 	webpackHotMiddleware = require('webpack-hot-middleware')(clientCompiler),
@@ -22,7 +22,7 @@ const requireFromString = require('require-from-string'),
 	};
 
 let handler;
-compiler.plugin('done', stats => {
+multiCompiler.plugin('done', stats => {
 	const template = readOutputFileSync(clientCompiler, 'index.html'),
 		{ createHandler } = requireFromString(readOutputFileSync(serverCompiler, 'ssr-bundle.js'));
 	handler = createHandler(template);
