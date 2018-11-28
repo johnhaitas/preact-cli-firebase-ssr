@@ -3,13 +3,12 @@ let serverConfig = require('./webpack.preact.server.config'),
 serverConfig.name = 'server';
 clientConfig.name = 'client';
 
-const requireFromString = require('require-from-string'),
+const { findCompilerNamed, readOutputFileSync, requireOutputFileSync } = require('./utils'),
 	webpack = require('webpack'),
 	webpackMultiConfig = [ serverConfig, clientConfig ],
 	multiCompiler = webpack(webpackMultiConfig),
-	serverCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'server'),
-	clientCompiler = multiCompiler.compilers.find(compiler => compiler.name === 'client'),
-	readOutputFileSync = (compiler, filename) => compiler.outputFileSystem.readFileSync(`${compiler.outputPath}/${filename}`).toString('utf-8'),
+	serverCompiler = findCompilerNamed(multiCompiler, 'server'),
+	clientCompiler = findCompilerNamed(multiCompiler, 'client'),
 	webpackIsomorphicDevMiddleware = require('webpack-isomorphic-dev-middleware')(clientCompiler, serverCompiler),
 	webpackHotMiddleware = require('webpack-hot-middleware')(clientCompiler),
 	express = require('express'),
@@ -24,7 +23,7 @@ const requireFromString = require('require-from-string'),
 let handler;
 multiCompiler.plugin('done', stats => {
 	const template = readOutputFileSync(clientCompiler, 'index.html'),
-		{ createHandler } = requireFromString(readOutputFileSync(serverCompiler, 'ssr-bundle.js'));
+		{ createHandler } = requireOutputFileSync(serverCompiler, 'ssr-bundle.js');
 	handler = createHandler(template);
 });
 
