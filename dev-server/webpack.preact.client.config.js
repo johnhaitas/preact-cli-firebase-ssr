@@ -20,6 +20,7 @@ const cwd = resolve(__dirname, '..'),
 	helpers = new WebpackConfigHelpers(cwd);
 
 let config = preactCliClientConfig(env);
+config.devtool = 'eval-source-map'; // Improves debugging in VSCode with support for stepping through lines
 config.watchOptions = {
 	ignored: [
 		resolve(cwd, 'node_modules'),
