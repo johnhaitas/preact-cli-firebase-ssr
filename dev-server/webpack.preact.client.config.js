@@ -32,4 +32,7 @@ config.entry.bundle = [
 	'webpack-hot-middleware/client'
 ];
 
+// in case you want to change your template
+// helpers.setHtmlTemplate(config, `!!ejs-loader!${source('template.html')}`);
+
 module.exports = config;
