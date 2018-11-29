@@ -9,8 +9,16 @@ const readOutputFileSync = (compiler, filename) =>
 const requireOutputFileSync = (compiler, filename) =>
 	requireFromString(readOutputFileSync(compiler, filename));
 
+const requestLogger = (req, res, next) => {
+	const startTime = Date.now(),
+		{ method, url } = req;
+	res.on('finish', () => console.log(`${res.statusCode} ${method} ${url} ${Date.now() - startTime}ms`)); // eslint-disable-line no-console
+	next();
+};
+
 module.exports = {
 	findCompilerNamed,
 	readOutputFileSync,
-	requireOutputFileSync
+	requireOutputFileSync,
+	requestLogger
 };
