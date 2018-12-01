@@ -24,7 +24,7 @@ config.devtool = 'eval-source-map'; // Improves debugging in VSCode with support
 config.watchOptions = {
 	ignored: [
 		resolve(cwd, 'node_modules'),
-		resolve(cwd, 'build/ssr-bundle'),
+		resolve(cwd, 'build'),
 		resolve(cwd, 'functions')
 	]
 };
