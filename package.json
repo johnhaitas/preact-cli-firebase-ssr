@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "preact build && webpack",
+    "preact-build": "preact build",
+    "build": "npm run preact-build && webpack",
     "serve": "npm run build && rm build/index.html && firebase serve --only hosting,functions",
     "deploy": "firebase deploy --only hosting,functions",
     "lint": "eslint src",
