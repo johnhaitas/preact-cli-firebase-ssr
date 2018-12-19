@@ -21,6 +21,7 @@
     "build/*"
   ],
   "devDependencies": {
+    "clean-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "^4.6.0",
     "eslint": "^4.9.0",
     "eslint-config-synacor": "^2.0.2",
