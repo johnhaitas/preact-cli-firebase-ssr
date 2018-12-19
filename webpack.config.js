@@ -1,13 +1,11 @@
 const { resolve } = require('path'),
 	CleanWebpackPlugin = require('clean-webpack-plugin'),
-	CopyWebpackPlugin = require('copy-webpack-plugin');
-
-const buildDir = resolve(__dirname, 'build'),
+	CopyWebpackPlugin = require('copy-webpack-plugin'),
+	buildDir = resolve(__dirname, 'build'),
 	ssrBuildDir = `${buildDir}/ssr-build`,
 	outputDir = resolve(__dirname, 'functions/app/build');
 
 module.exports = {
-	mode: 'production',
 	entry: {
 		template: `!!raw-loader!${buildDir}/index.html`
 	},
