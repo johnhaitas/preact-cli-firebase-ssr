@@ -1,37 +1,30 @@
 const { resolve } = require('path'),
+	CleanWebpackPlugin = require('clean-webpack-plugin'),
 	CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const outputDir = 'functions/app/build';
+const buildDir = resolve(__dirname, 'build'),
+	ssrBuildDir = `${buildDir}/ssr-build`,
+	outputDir = resolve(__dirname, 'functions/app/build');
 
 module.exports = {
+	mode: 'production',
 	entry: {
-		functions: './firebase-functions-handler.js'
+		template: `!!raw-loader!${buildDir}/index.html`
 	},
 	name: 'commonjs',
-	module: {
-		rules: [{
-			test: /\.html$/,
-			use: [ {
-				loader: 'raw-loader'
-			}]
-		}]
-	},
 	output: {
-		path: resolve(__dirname, outputDir),
+		path: outputDir,
 		filename: '[name].js',
-		library: '',
+		library: 'template',
 		libraryTarget: 'commonjs'
 	},
-	externals: {
-		'firebase-functions': 'firebase-functions',
-		'firebase-admin': 'firebase-admin'
-	},
 	plugins: [
+		new CleanWebpackPlugin([outputDir]),
 		new CopyWebpackPlugin([
 			'ssr-bundle.js'
 		].map(f => ({
-			from: resolve(__dirname, `build/ssr-build/${f}`),
-			to: resolve(__dirname, `${outputDir}/${f}`)
+			from: `${ssrBuildDir}/${f}`,
+			to: `${outputDir}/${f}`
 		})))
 	],
 	node: {

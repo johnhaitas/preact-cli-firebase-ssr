@@ -1,5 +1,5 @@
 const { createHandler } = require('./build/ssr-bundle'),
-	{ template } = require('./build/functions');
+	{ template } = require('./build/template');
 
 module.exports = {
 	createHandler,

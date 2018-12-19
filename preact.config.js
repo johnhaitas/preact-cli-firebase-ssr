@@ -10,11 +10,12 @@ import patchPreacCliConfig from './preact-cli-patches.config';
  * @param {WebpackConfigHelpers} helpers - object with useful helpers when working with config.
  **/
 export default function (config, env, helpers) {
+	const { source } = env;
 
 	patchPreacCliConfig(config, env, helpers);
 
 	if (env.ssr) {
-		config.entry['ssr-bundle'] = env.source('./server/index.js');
+		config.entry['ssr-bundle'] = source('./server/index.js');
 		config.output.filename = '[name].js';
 	}
 
@@ -34,6 +35,6 @@ export default function (config, env, helpers) {
 			/\.git/
 		]
 	};
-	 
+
 	preactCliSwPrecachePlugin(config, precacheConfig);
 }
