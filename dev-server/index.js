@@ -1,3 +1,5 @@
+const { bold } = require('chalk');
+
 const runServer = async () => {
 	const { findCompilerNamed, readOutputFileSync, requireOutputFileSync, requestLogger } = require('./utils'),
 		multiConfig = await (require('./load-preact-config'))(),
@@ -19,7 +21,20 @@ const runServer = async () => {
 	app.use(webpackHotMiddleware);
 	app.use(hotHandlerMiddleware);
 
-	app.listen(8080, () => console.log('app is listening!')); // eslint-disable-line no-console
+	const port = 8080;
+	app.listen(port, () => {
+		const protocol = 'http',
+			host = 'localhost',
+			boldPort = bold(port),
+			serverAddr = `${protocol}://${host}:${boldPort}`,
+			localIpAddr = `${protocol}://${require('ip').address()}:${boldPort}`;
+
+		process.stdout.write('\n\n');
+		process.stdout.write('You can view the application in browser.\n\n');
+		process.stdout.write(`${bold('Local:')}            ${serverAddr}\n`);
+		process.stdout.write(`${bold('On Your Network:')}  ${localIpAddr}\n\n`);
+		process.stdout.write('\n\n');
+	});
 };
 
 runServer();
