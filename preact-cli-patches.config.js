@@ -31,6 +31,13 @@ export default function (config, env, helpers) {
 		}
 	}
 
+	// sass-loader includePaths
+	helpers.getLoadersByName(config, 'proxy-loader')
+		.filter(r => r.loader.options.loader === 'sass-loader')
+		.map(r => r.loader.options.options)
+		.forEach(o => o.includePaths = (o.includePaths && o.includePaths.length > 0 && o.includePaths[0] instanceof Array) ? o.includePaths[0] : o.includePaths);
+
+
 	// To fix bug in preact-cli which names css files numerically
 	helpers.getPluginsByName(config, 'MiniCssExtractPlugin')
 		.forEach(({ plugin }) => plugin.options.chunkFilename = plugin.options.chunkFilename.replace('[id]', '[name]'));
