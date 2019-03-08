@@ -6,6 +6,7 @@
   "scripts": {
     "preact-build": "preact build",
     "build": "npm run preact-build && webpack",
+    "dev-server": "node dev-server",
     "serve": "npm run build && rm build/index.html && firebase serve --only hosting,functions",
     "deploy": "firebase deploy --only hosting,functions",
     "lint": "eslint src",
@@ -32,16 +33,16 @@
     "preact-cli": "^3.0.0-next.16",
     "preact-cli-sw-precache": "^1.0.3",
     "preact-render-spy": "^1.2.1",
-    "webpack": "^4.26.1",
-    "webpack-cli": "^3.1.2",
+    "preact-render-to-string": "^5.0.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
     "webpack-hot-middleware": "^2.24.3",
     "webpack-isomorphic-dev-middleware": "^4.1.0"
   },
   "dependencies": {
     "firebase-functions": "^2.1.0",
-    "preact": "^8.4.2",
-    "preact-compat": "^3.17.0",
-    "preact-router": "^2.5.7"
+    "preact": "^10.0.0-alpha.1",
+    "preact-router": "^3.0.0"
   },
   "jest": {
     "verbose": true,

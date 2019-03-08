@@ -1,4 +1,6 @@
+import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { resolve } from 'path';
 
 /**
  * Function that mutates original webpack config.
@@ -9,6 +11,34 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
  * @param {WebpackConfigHelpers} helpers - object with useful helpers when working with config.
  **/
 export default function (config, env, helpers) {
+
+	// BEGIN - Preact 10
+	const { cwd } = env;
+
+	// getting absolute paths to node_modules js files
+	// .mjs files throw a ES import exception that looks like the following:
+	// "Can't reexport the namespace object from non EcmaScript module (only default export is available)"
+	const preactModuleRoot = resolve(cwd, 'node_modules/preact'),
+		preactModule =  resolve(preactModuleRoot, 'dist/preact.js'),
+		preactCompatModule = resolve(preactModuleRoot, 'compat/dist/compat.js'),
+		preactHooksModule = resolve(preactModuleRoot, 'hooks/dist/hooks.js'),
+		preactDebugModule =  resolve(preactModuleRoot, 'debug/dist/debug.js');
+
+	config.resolve.alias.preact = preactModule;
+	config.resolve.alias.preact$ = preactModule;
+	config.resolve.alias['preact/compat'] = preactCompatModule;
+	config.resolve.alias['preact/hooks'] = preactHooksModule;
+	config.resolve.alias['preact/debug'] = preactDebugModule;
+	config.resolve.alias.react = preactCompatModule;
+	config.resolve.alias['react-dom'] = preactCompatModule;
+
+	// it seems this is neccessary because preact-cli has its own preact 8.4.2
+	config.plugins.push(new webpack.NormalModuleReplacementPlugin(/^preact$/, preactModule));
+	config.plugins.push(new webpack.NormalModuleReplacementPlugin(/^preact-compat$/, preactCompatModule));
+	config.plugins.push(new webpack.NormalModuleReplacementPlugin(/^preact\/compat$/, preactCompatModule));
+	config.plugins.push(new webpack.NormalModuleReplacementPlugin(/^preact\/hooks$/, preactHooksModule));
+	config.plugins.push(new webpack.NormalModuleReplacementPlugin(/^preact\/debug$/, preactDebugModule));
+	// END - Preact 10
 
 	if (env.production !== true) {
 		config.devtool = 'eval-source-map'; // Improves debugging in VSCode with support for stepping through lines
