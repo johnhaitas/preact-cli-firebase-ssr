@@ -7,11 +7,19 @@ const cwd = resolve(__dirname, '..'),
 	source = dir => resolve(src, dir),
 	env = {
 		cwd,
-		isWatch: true,
-		isProd: false,
-		src,
 		dest,
-		source
+		src,
+		source,
+
+		config: 'preact.config.js',
+
+		isProd: false,
+		isWatch: true,
+		
+		esm: false,
+		'inline-css': true,
+		preload: true,
+		sw: false
 	};
 
 let serverConfig = require('preact-cli/lib/lib/webpack/webpack-server-config')(env),
